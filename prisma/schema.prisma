@@ -1,0 +1,196 @@
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../prisma/generated/client"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+// ─────────────────────────────────────────
+// AUTH & USERS
+// ─────────────────────────────────────────
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  phone         String?
+  avatarUrl     String?
+  role          Role      @default(CLIENT)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  bookingsAsClient    Booking[]      @relation("ClientBookings")
+  bookingsAsProvider  Booking[]      @relation("ProviderBookings")
+  availability        Availability[]
+  services            Service[]      @relation("ProviderServices")
+  notifications       Notification[]
+
+  @@map("users")
+}
+
+enum Role {
+  CLIENT
+  PROVIDER
+  ADMIN
+}
+
+// ─────────────────────────────────────────
+// SERVICES (what can be booked)
+// ─────────────────────────────────────────
+
+model Service {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  duration    Int      // in minutes
+  price       Decimal? @db.Decimal(10, 2)
+  currency    String   @default("USD")
+  color       String   @default("#6366f1") // for calendar display
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  provider    User      @relation("ProviderServices", fields: [providerId], references: [id])
+  providerId  String
+  bookings    Booking[]
+
+  @@map("services")
+}
+
+// ─────────────────────────────────────────
+// AVAILABILITY (provider's working hours)
+// ─────────────────────────────────────────
+
+model Availability {
+  id         String   @id @default(cuid())
+  dayOfWeek  Int      // 0 = Sunday, 6 = Saturday
+  startTime  String   // "09:00" (HH:mm)
+  endTime    String   // "17:00" (HH:mm)
+  isActive   Boolean  @default(true)
+
+  // Relations
+  provider   User   @relation(fields: [providerId], references: [id])
+  providerId String
+
+  @@unique([providerId, dayOfWeek])
+  @@map("availability")
+}
+
+model BlockedSlot {
+  id          String   @id @default(cuid())
+  providerId  String
+  startTime   DateTime
+  endTime     DateTime
+  reason      String?  // "vacation", "personal", etc.
+  createdAt   DateTime @default(now())
+
+  @@map("blocked_slots")
+}
+
+// ─────────────────────────────────────────
+// BOOKINGS (the core entity)
+// ─────────────────────────────────────────
+
+model Booking {
+  id          String        @id @default(cuid())
+  status      BookingStatus @default(PENDING)
+  startTime   DateTime
+  endTime     DateTime
+  notes       String?       // client notes
+  cancelReason String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  // Relations
+  client      User    @relation("ClientBookings", fields: [clientId], references: [id])
+  clientId    String
+  provider    User    @relation("ProviderBookings", fields: [providerId], references: [id])
+  providerId  String
+  service     Service @relation(fields: [serviceId], references: [id])
+  serviceId   String
+
+  reminders   Reminder[]
+
+  @@map("bookings")
+}
+
+enum BookingStatus {
+  PENDING     // awaiting provider confirmation
+  CONFIRMED   // provider approved
+  CANCELLED   // cancelled by either party
+  COMPLETED   // appointment done
+  NO_SHOW     // client didn't show up
+}
+
+// ─────────────────────────────────────────
+// PAYMENTS (optional, e.g. Stripe)
+// ─────────────────────────────────────────
+
+// model Payment {
+//   id                String        @id @default(cuid())
+//   amount            Decimal       @db.Decimal(10, 2)
+//   currency          String        @default("USD")
+//   status            PaymentStatus @default(UNPAID)
+//   stripePaymentId   String?       @unique
+//   paidAt            DateTime?
+//   createdAt         DateTime      @default(now())
+
+//   booking     Booking @relation(fields: [bookingId], references: [id])
+//   bookingId   String  @unique
+
+//   @@map("payments")
+// }
+
+// enum PaymentStatus {
+//   UNPAID
+//   PAID
+//   REFUNDED
+//   FAILED
+// }
+
+// ─────────────────────────────────────────
+// REMINDERS (email/SMS before appointment)
+// ─────────────────────────────────────────
+
+model Reminder {
+  id          String       @id @default(cuid())
+  type        ReminderType
+  scheduledAt DateTime
+  sentAt      DateTime?
+  status      String       @default("PENDING") // PENDING | SENT | FAILED
+
+  booking     Booking @relation(fields: [bookingId], references: [id])
+  bookingId   String
+
+  @@map("reminders")
+}
+
+enum ReminderType {
+  EMAIL_24H
+  EMAIL_1H
+  SMS_24H
+  SMS_1H
+}
+
+// ─────────────────────────────────────────
+// NOTIFICATIONS (in-app)
+// ─────────────────────────────────────────
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  isRead    Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  @@map("notifications")
+}
