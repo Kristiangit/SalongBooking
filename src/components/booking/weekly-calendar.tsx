@@ -38,31 +38,31 @@ export function WeeklyCalendar({
 }: WeeklyCalendarProps) {
   return (
     <Card className="w-fit overflow-hidden">
-      <CardHeader className="bg-slate-950/90 p-6">
+      <CardHeader className="bg-card/90 p-6">
         <div className="flex flex-col gap-4 sm:items-center sm:justify-between sm:flex-row">
           <div>
-            <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Calendar view</p>
+            <p className="text-sm uppercase tracking-[0.24em] text-secondary-foreground">Calendar view</p>
           </div>
-        <CardTitle className="mt-2 text-slate-300">{weekLabel}</CardTitle>
+        <CardTitle className="mt-2 text-foreground">{weekLabel}</CardTitle>
           <div className="flex flex-wrap items-center gap-3">
             <button
               type="button"
               onClick={onPreviousWeek}
-              className="rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-slate-100 transition hover:border-primary/70 hover:bg-slate-900/95"
+              className="rounded-full border border-muted-foreground bg-accent-foreground px-4 py-2 text-sm text-popover transition hover:border-primary/70 hover:bg-accent-foreground/95"
             >
               <ArrowLeft className="h-4 w-4" />
             </button>
             <button
               type="button"
               onClick={onToday}
-              className="rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-slate-100 transition hover:border-primary/70 hover:bg-slate-900/95"
+              className="rounded-full border border-muted-foreground bg-accent-foreground px-4 py-2 text-sm text-popover transition hover:border-primary/70 hover:bg-accent-foreground/95"
             >
               Today
             </button>
             <button
               type="button"
               onClick={onNextWeek}
-              className="rounded-full border border-primary bg-primary/10 px-4 py-2 text-sm font-semibold text-amber-200 transition hover:bg-primary/20"
+              className="rounded-full border border-primary bg-accent-foreground/10 px-4 py-2 text-sm font-semibold text-accent transition hover:bg-primary/20"
             >
               <ArrowRight className="h-4 w-4" />
             </button>
@@ -72,11 +72,11 @@ export function WeeklyCalendar({
       </CardHeader>
       <CardContent className="px-0 pb-6">
         <div>
-          <div className="grid grid-cols-[repeat(6,minmax(160px,1fr))] gap-2 border-b border-slate-800/80 px-4 py-3 text-sm text-slate-400">
+          <div className="grid grid-cols-[repeat(6,minmax(160px,1fr))] gap-2 border-b border-slate-800 px-4 py-3 text-sm text-accent-foreground">
             {week.map((day) => (
-              <div key={day.toISOString()} className="space-y-2 rounded-3xl border border-slate-800/70 bg-slate-950/80 p-3 text-center">
-                <p className="text-xs uppercase tracking-[0.24em] text-slate-500">{getWeekdayLabel(day, weekdays)}</p>
-                <p className="text-sm font-semibold text-white">{new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(day)}</p>
+              <div key={day.toISOString()} className="space-y-2 rounded-3xl border border-slate-800/70 bg-accent p-3 text-center">
+                <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">{getWeekdayLabel(day, weekdays)}</p>
+                <p className="text-sm font-semibold text-foreground">{new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(day)}</p>
               </div>
             ))}
           </div>

@@ -102,7 +102,7 @@ export default function BookingPage() {
         <div>
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <Badge>Book a cut</Badge>
+              <Badge variant="title">Book a cut</Badge>
               <h1 className="mt-4 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
                 Weekly barber booking calendar
               </h1>
