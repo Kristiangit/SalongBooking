@@ -71,7 +71,12 @@ export default function BookingPage() {
     setSelectedSlot(null)
     setSelectedDay(null)
   }
-
+  const handleToday = () => {
+    const today = new Date()
+    setWeekStart(getWeekStart(today))
+    setSelectedSlot(null)
+    setSelectedDay(null)
+  }
   const handleNextWeek = () => {
     const next = new Date(weekStart)
     next.setDate(next.getDate() + 7)
@@ -93,7 +98,7 @@ export default function BookingPage() {
 
   return (
     <main className="min-h-screen bg-background text-foreground px-6 py-10 sm:px-10 lg:px-14">
-      <div className="mx-auto flex max-w-7xl flex-col gap-10">
+      <div className="flex flex-col gap-10">
         <div>
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
@@ -106,7 +111,7 @@ export default function BookingPage() {
 
         </div>
 
-        <section className="grid gap-10 lg:grid-cols-[1.6fr_0.9fr]">
+        <section className="flex flex-col gap-10">
           <WeeklyCalendar
             week={week}
             weekdays={weekdays}
@@ -121,16 +126,17 @@ export default function BookingPage() {
             }}
             onPreviousWeek={handlePreviousWeek}
             onNextWeek={handleNextWeek}
+            onToday={handleToday}
           />
 
-          {/* <AppointmentPanel
+          <AppointmentPanel
             selectedDay={selectedDay}
             selectedSlot={selectedSlot}
             selectedServiceMeta={selectedServiceMeta}
             services={services}
             selectedService={selectedService}
             onSelectService={setSelectedService}
-          /> */}
+          />
         </section>
       </div>
     </main>

@@ -26,7 +26,7 @@ export default function Home() {
 
               <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
                 <a
-                  href="#"
+                  href="/booking"
                   className="inline-flex w-full items-center justify-center rounded-full bg-amber-400 px-8 py-4 text-base font-semibold text-slate-950 transition hover:bg-amber-300 sm:w-auto"
                 >
                   Book your cut

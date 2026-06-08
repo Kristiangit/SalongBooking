@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import { ArrowLeft, ArrowRight } from "lucide-react"
 
 interface Slot {
   time: string
@@ -16,6 +17,7 @@ interface WeeklyCalendarProps {
   onSelectSlot: (day: Date, slot: Slot) => void
   onPreviousWeek: () => void
   onNextWeek: () => void
+  onToday: () => void
 }
 
 function getWeekdayLabel(date: Date, weekdays: string[]) {
@@ -32,6 +34,7 @@ export function WeeklyCalendar({
   onSelectSlot,
   onPreviousWeek,
   onNextWeek,
+  onToday,
 }: WeeklyCalendarProps) {
   return (
     <Card className="w-fit overflow-hidden">
@@ -39,22 +42,29 @@ export function WeeklyCalendar({
         <div className="flex flex-col gap-4 sm:items-center sm:justify-between sm:flex-row">
           <div>
             <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Calendar view</p>
-            <CardTitle className="mt-2 text-slate-300">{weekLabel}</CardTitle>
           </div>
+        <CardTitle className="mt-2 text-slate-300">{weekLabel}</CardTitle>
           <div className="flex flex-wrap items-center gap-3">
             <button
               type="button"
               onClick={onPreviousWeek}
               className="rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-slate-100 transition hover:border-primary/70 hover:bg-slate-900/95"
             >
-              Previous week
+              <ArrowLeft className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={onToday}
+              className="rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-slate-100 transition hover:border-primary/70 hover:bg-slate-900/95"
+            >
+              Today
             </button>
             <button
               type="button"
               onClick={onNextWeek}
               className="rounded-full border border-primary bg-primary/10 px-4 py-2 text-sm font-semibold text-amber-200 transition hover:bg-primary/20"
             >
-              Next week
+              <ArrowRight className="h-4 w-4" />
             </button>
           </div>
         </div>

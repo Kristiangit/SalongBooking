@@ -57,10 +57,6 @@ body {
   margin: 0;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 :root {
   --foreground: #0f172a;
   --background: #f8fafc;
