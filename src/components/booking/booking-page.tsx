@@ -8,7 +8,7 @@ import { WeeklyCalendar } from "@/components/booking/weekly-calendar"
 import { AppointmentPanel } from "@/components/booking/appointment-panel"
 
 const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-const timeSlots = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30"]
+const timeSlots = ["09:00",  "10:00",  "11:00",  "12:00",  "13:00",  "14:00",  "15:00",]
 
 const services = [
   { id: "classic", label: "Classic Cut", duration: "30 min", price: "$35" },
@@ -42,7 +42,7 @@ function formatWeekLabel(start: Date) {
 }
 
 function buildWeek(start: Date) {
-  return Array.from({ length: 6 }).map((_, index) => {
+  return Array.from({ length: weekdays.length }).map((_, index) => {
     const day = new Date(start)
     day.setDate(day.getDate() + index)
     return day
