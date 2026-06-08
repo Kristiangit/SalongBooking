@@ -39,45 +39,30 @@ export function WeeklyCalendar({
         <div className="flex flex-col gap-4 sm:items-center sm:justify-between sm:flex-row">
           <div>
             <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Calendar view</p>
-            <CardTitle>One week at a glance</CardTitle>
-            <p className="mt-2 text-sm text-slate-300">{weekLabel}</p>
+            <CardTitle className="mt-2 text-slate-300">{weekLabel}</CardTitle>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <button
               type="button"
               onClick={onPreviousWeek}
-              className="rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-slate-100 transition hover:border-amber-400/70 hover:bg-slate-900/95"
+              className="rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-slate-100 transition hover:border-primary/70 hover:bg-slate-900/95"
             >
               Previous week
             </button>
             <button
               type="button"
               onClick={onNextWeek}
-              className="rounded-full border border-amber-400 bg-amber-400/10 px-4 py-2 text-sm font-semibold text-amber-200 transition hover:bg-amber-400/20"
+              className="rounded-full border border-primary bg-primary/10 px-4 py-2 text-sm font-semibold text-amber-200 transition hover:bg-primary/20"
             >
               Next week
             </button>
           </div>
         </div>
 
-        <div className="mt-4 flex flex-col gap-3 rounded-3xl border border-slate-800/70 bg-slate-900/80 p-4 text-sm text-slate-300 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="uppercase tracking-[0.24em] text-slate-500">Selected week</p>
-            <p className="mt-1 text-base font-semibold text-white">{weekLabel}</p>
-          </div>
-          <div className="rounded-3xl bg-slate-950/80 px-4 py-3 text-sm text-slate-300">
-            {selectedDay
-              ? `${getWeekdayLabel(selectedDay, weekdays)}, ${new Intl.DateTimeFormat("en-US", {
-                  month: "short",
-                  day: "numeric",
-                }).format(selectedDay)} @ ${selectedSlot ?? "no slot"}`
-              : "No slot selected"}
-          </div>
-        </div>
       </CardHeader>
       <CardContent className="px-0 pb-6">
         <div>
-          <div className="grid grid-cols-[repeat(6,minmax(160px,1fr))] gap-2 border-b border-slate-800/80 px-4 pb-3 text-sm text-slate-400">
+          <div className="grid grid-cols-[repeat(6,minmax(160px,1fr))] gap-2 border-b border-slate-800/80 px-4 py-3 text-sm text-slate-400">
             {week.map((day) => (
               <div key={day.toISOString()} className="space-y-2 rounded-3xl border border-slate-800/70 bg-slate-950/80 p-3 text-center">
                 <p className="text-xs uppercase tracking-[0.24em] text-slate-500">{getWeekdayLabel(day, weekdays)}</p>
@@ -102,15 +87,15 @@ export function WeeklyCalendar({
                         className={cn(
                           "w-full rounded-3xl border px-3 py-3 text-left text-sm transition",
                           slot.available
-                            ? "border-slate-700 bg-slate-900 text-slate-100 hover:border-amber-400/60 hover:bg-slate-900/95"
+                            ? "border-slate-700 bg-slate-900 text-slate-100 hover:border-primary/60"
                             : "cursor-not-allowed border-slate-800 bg-slate-950 text-slate-500 opacity-70",
-                          isSelected ? "border-amber-400 bg-amber-400/10 text-amber-100" : ""
+                          isSelected ? "border-primary bg-primary/10 text-amber-100" : ""
                         )}
                       >
                         <div className="flex items-center justify-between">
                           <span>{slot.time}</span>
                           <span className={cn("rounded-full px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.22em]", slot.available ? "bg-emerald-400/10 text-emerald-300" : "bg-slate-800 text-slate-400")}>
-                            {slot.available ? "Available" : "Booked"}
+                            {slot.available ? "Ledig" : "Opptatt"}
                           </span>
                         </div>
                       </button>

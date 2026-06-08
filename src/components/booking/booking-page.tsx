@@ -33,7 +33,7 @@ function formatShortDate(date: Date) {
 
 function formatWeekLabel(start: Date) {
   const end = new Date(start)
-  end.setDate(end.getDate() + 5)
+  end.setDate(end.getDate() + 6)
 
   const startLabel = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(start)
   const endLabel = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(end)
