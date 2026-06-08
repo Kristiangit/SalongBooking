@@ -4,7 +4,6 @@ import { useMemo, useState } from "react"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { BookingHeader } from "@/components/booking/booking-header"
 import { WeeklyCalendar } from "@/components/booking/weekly-calendar"
 import { AppointmentPanel } from "@/components/booking/appointment-panel"
 
@@ -102,33 +101,16 @@ export default function BookingPage() {
               <h1 className="mt-4 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
                 Weekly barber booking calendar
               </h1>
-              <p className="mt-3 max-w-2xl text-base leading-8 text-muted sm:text-lg">
-                Choose a day, pick a time slot, and reserve your style for the week ahead. This view shows a six-day window at once.
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <Button variant="ghost" onClick={handlePreviousWeek}>
-                Previous week
-              </Button>
-              <Button variant="default" onClick={handleNextWeek}>
-                Next week
-              </Button>
             </div>
           </div>
 
-          <BookingHeader
-            weekLabel={formatWeekLabel(weekStart)}
-            selectedDay={selectedDay}
-            selectedSlot={selectedSlot}
-            formatShortDate={formatShortDate}
-            weekdays={weekdays}
-          />
         </div>
 
         <section className="grid gap-10 lg:grid-cols-[1.6fr_0.9fr]">
           <WeeklyCalendar
             week={week}
             weekdays={weekdays}
+            weekLabel={formatWeekLabel(weekStart)}
             availableSlots={availableSlots}
             selectedSlot={selectedSlot}
             selectedDay={selectedDay}
@@ -137,6 +119,8 @@ export default function BookingPage() {
               setSelectedSlot(slot.time)
               setSelectedDay(day)
             }}
+            onPreviousWeek={handlePreviousWeek}
+            onNextWeek={handleNextWeek}
           />
 
           {/* <AppointmentPanel

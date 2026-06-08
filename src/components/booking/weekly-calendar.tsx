@@ -9,24 +9,69 @@ interface Slot {
 interface WeeklyCalendarProps {
   week: Date[]
   weekdays: string[]
-  availableSlots: Record<string, Slot[]>
+  weekLabel: string
   selectedDay: Date | null
   selectedSlot: string | null
+  availableSlots: Record<string, Slot[]>
   onSelectSlot: (day: Date, slot: Slot) => void
+  onPreviousWeek: () => void
+  onNextWeek: () => void
 }
 
 function getWeekdayLabel(date: Date, weekdays: string[]) {
   return weekdays[(date.getDay() + 6) % 7]
 }
 
-export function WeeklyCalendar({ week, weekdays, availableSlots, selectedDay, selectedSlot, onSelectSlot }: WeeklyCalendarProps) {
+export function WeeklyCalendar({
+  week,
+  weekdays,
+  weekLabel,
+  selectedDay,
+  selectedSlot,
+  availableSlots,
+  onSelectSlot,
+  onPreviousWeek,
+  onNextWeek,
+}: WeeklyCalendarProps) {
   return (
     <Card className="w-fit overflow-hidden">
       <CardHeader className="bg-slate-950/90 p-6">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-4 sm:items-center sm:justify-between sm:flex-row">
           <div>
             <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Calendar view</p>
             <CardTitle>One week at a glance</CardTitle>
+            <p className="mt-2 text-sm text-slate-300">{weekLabel}</p>
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={onPreviousWeek}
+              className="rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-slate-100 transition hover:border-amber-400/70 hover:bg-slate-900/95"
+            >
+              Previous week
+            </button>
+            <button
+              type="button"
+              onClick={onNextWeek}
+              className="rounded-full border border-amber-400 bg-amber-400/10 px-4 py-2 text-sm font-semibold text-amber-200 transition hover:bg-amber-400/20"
+            >
+              Next week
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-4 flex flex-col gap-3 rounded-3xl border border-slate-800/70 bg-slate-900/80 p-4 text-sm text-slate-300 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="uppercase tracking-[0.24em] text-slate-500">Selected week</p>
+            <p className="mt-1 text-base font-semibold text-white">{weekLabel}</p>
+          </div>
+          <div className="rounded-3xl bg-slate-950/80 px-4 py-3 text-sm text-slate-300">
+            {selectedDay
+              ? `${getWeekdayLabel(selectedDay, weekdays)}, ${new Intl.DateTimeFormat("en-US", {
+                  month: "short",
+                  day: "numeric",
+                }).format(selectedDay)} @ ${selectedSlot ?? "no slot"}`
+              : "No slot selected"}
           </div>
         </div>
       </CardHeader>
