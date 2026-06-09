@@ -78,10 +78,10 @@ export function AppointmentPanel({
                               Service: <span className="text-foreground">Vanlig klipp</span>
                           </p>
                           <p>
-                              Date: <span className="text-foreground">{selectedDay ? selectedDay.toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "Not selected"}</span>
+                              Date: <span className="text-foreground">{selectedDay ? selectedDay.toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "Ikke valgt"}</span>
                           </p>
                           <p>
-                              Time: <span className="text-foreground">{selectedSlot ?? "Not selected"}</span>
+                              Time: <span className="text-foreground">{selectedSlot ?? "Ikke valgt"}</span>
                           </p>
                       </div>
                   </div>

@@ -51,7 +51,7 @@ export default function AdminDashboard() {
       <div className="grid md:grid-cols-3 gap-6">
         <Card className="bg-white border shadow-sm">
           <CardContent className="p-4">
-            <h2 className="text-lg font-semibold text-gray-600">Total Bookings</h2>
+            <h2 className="text-lg font-semibold text-gray-600">Antall timer i dag</h2>
             <p className="text-2xl text-blue-600">{appointments.length}</p>
           </CardContent>
         </Card>
@@ -78,7 +78,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="text-right">
                   <p className="text-gray-700">{appt.time}</p>
-                  <Button size="sm" variant="destructive">Cancel</Button>
+                  <Button size="sm" variant="destructive">Avbook</Button>
                 </div>
               </div>
             ))}

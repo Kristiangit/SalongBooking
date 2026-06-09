@@ -49,6 +49,9 @@ function buildWeek(start: Date) {
   })
 }
 
+
+
+
 const bookingServices = services
 
 type Service = (typeof services)[number]
@@ -104,7 +107,7 @@ export default function BookingPage() {
             <div>
               <Badge variant="title">Book a cut</Badge>
               <h1 className="mt-4 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-                Weekly barber booking calendar
+                Book time
               </h1>
             </div>
           </div>
