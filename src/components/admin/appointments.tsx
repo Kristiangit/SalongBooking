@@ -10,35 +10,28 @@ export function FutureAppointmentsManager() {
     { id: 1, name: "Mark Lee", service: "Beard Trim", date: "2026-06-12", time: "14:00" },
   ]);
 
-
   const [newItem, setNewItem] = useState({ name: "", service: "", date: "", time: "" });
   const [editingId, setEditingId] = useState(null);
 
-
   const addItem = () => {
     if (!newItem.name || !newItem.service || !newItem.date || !newItem.time) return;
-
 
     setFutureAppointments([
       ...futureAppointments,
       { id: Date.now(), ...newItem },
     ]);
 
-
     setNewItem({ name: "", service: "", date: "", time: "" });
   };
-
 
   const deleteItem = (id: number) => {
     setFutureAppointments(futureAppointments.filter((a) => a.id !== id));
   };
 
-
   const startEdit = (item: any) => {
     setEditingId(item.id);
     setNewItem(item);
   };
-
 
   const saveEdit = () => {
     setFutureAppointments(futureAppointments.map((a) =>
