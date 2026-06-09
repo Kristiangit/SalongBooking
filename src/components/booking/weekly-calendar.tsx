@@ -57,12 +57,12 @@ export function WeeklyCalendar({
               onClick={onToday}
               className="rounded-full border border-muted-foreground bg-accent-foreground px-4 py-2 text-sm text-popover transition hover:border-primary/70 hover:bg-accent-foreground/95"
             >
-              Today
+              I dag
             </button>
             <button
               type="button"
               onClick={onNextWeek}
-              className="rounded-full border border-primary bg-accent-foreground/10 px-4 py-2 text-sm font-semibold text-accent transition hover:bg-primary/20"
+              className="rounded-full border border-muted-foreground bg-accent-foreground px-4 py-2 text-sm text-popover transition hover:border-primary/70 hover:bg-accent-foreground/95"
             >
               <ArrowRight className="h-4 w-4" />
             </button>
@@ -97,14 +97,14 @@ export function WeeklyCalendar({
                         className={cn(
                           "w-full rounded-3xl border px-3 py-3 text-left text-sm transition",
                           slot.available
-                            ? "border-slate-700 bg-slate-900 text-slate-100 hover:border-primary/60"
-                            : "cursor-not-allowed border-slate-800 bg-slate-950 text-slate-500 opacity-70",
-                          isSelected ? "border-primary bg-primary/10 text-amber-100" : ""
+                            ? "border-slate-700 bg-card text-foreground hover:border-primary/60"
+                            : "cursor-not-allowed border-slate-800 bg-muted text-foreground opacity-70",
+                          isSelected ? "border-primary bg-primary/50" : ""
                         )}
                       >
                         <div className="flex items-center justify-between">
                           <span>{slot.time}</span>
-                          <span className={cn("rounded-full px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.22em]", slot.available ? "bg-emerald-400/10 text-emerald-300" : "bg-slate-800 text-slate-400")}>
+                          <span className={cn("rounded-full px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.22em]", slot.available ? "bg-emerald-400/20 text-emerald-600" : "bg-slate-800 text-slate-400")}>
                             {slot.available ? "Ledig" : "Opptatt"}
                           </span>
                         </div>
