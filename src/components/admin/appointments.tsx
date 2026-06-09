@@ -82,23 +82,29 @@ export function CalendarAppointments() {
     setAppointments([...appointments, ...newSlots]);
   };
 
+  const weekdays = ["Sø", "Ma", "Ti", "On", "To", "Fr", "Lø"];
+
   return (
     <Card className="bg-white border shadow-sm">
       <CardContent className="p-4 space-y-4">
         <h2 className="text-xl font-semibold">Kalender</h2>
 
-        <div className="flex flex-row justify-around items-start gap-6">
+        <div className="flex flex-row justify-evenly items-start gap-6">
           <Calendar
             mode="single"
             selected={selectedDate}
             onSelect={setSelectedDate}
             className="rounded-md border"
+            formatters={{
+              formatWeekdayName: (date) => weekdays[date.getDay()],
+            }}
+            weekStartsOn={1}
           />
 
           {selectedDate && (
-            <div className="space-x-8 flex flex-row justify-evenly">
+            <div className="space-x-8 flex flex-row justify-around">
               {/* List */}
-              <div className="grid gap-2 mb-auto">
+              <div className="grid gap-2 mr-20">
                 {getAppointmentsForDate(selectedDate).map((appt) => (
                   <div
                     key={appt.id}
@@ -145,45 +151,45 @@ export function CalendarAppointments() {
 
 
               {/* Template */}
-              <div className="flex gap-2 mt-10 items-end">
-                <FieldGroup className="flex flex-row items-center gap-2">
-                  <Field>
-                    <FieldLabel>Min</FieldLabel>
-                    <Input
-                      type="number"
-                      value={template.amount}
-                      onChange={(e) =>
-                        setTemplate({ ...template, amount: parseInt(e.target.value) || 0 })
-                      }
-                    />
-                  </Field>
-
-                  <Field>
-                    <FieldLabel>Start</FieldLabel>
+                <div className="flex gap-2 mt-10 items-end">
+                  <FieldGroup className="flex flex-row items-center gap-2">
+                    <Field>
+                      <FieldLabel>Min</FieldLabel>
                       <Input
-                      type="time"
-                      value={template.start}
-                      onChange={(e) =>
-                        setTemplate({ ...template, start: e.target.value })
-                      }
-                    />
-                  </Field>
+                        type="number"
+                        value={template.amount}
+                        onChange={(e) =>
+                          setTemplate({ ...template, amount: parseInt(e.target.value) || 0 })
+                        }
+                      />
+                    </Field>
 
-                  <Field>
-                    <FieldLabel>Slutt</FieldLabel>
-                    <Input
-                      type="time"
-                      value={template.end}
-                      onChange={(e) =>
-                        setTemplate({ ...template, end: e.target.value })
-                      }
-                    />
-                  </Field>
-                </FieldGroup>
-                <Button variant="outline" onClick={fillTemplateDay}>
-                  Fyll dagen
-                </Button>
-              </div>
+                    <Field>
+                      <FieldLabel>Start</FieldLabel>
+                        <Input
+                        type="time"
+                        value={template.start}
+                        onChange={(e) =>
+                          setTemplate({ ...template, start: e.target.value })
+                        }
+                      />
+                    </Field>
+
+                    <Field>
+                      <FieldLabel>Slutt</FieldLabel>
+                      <Input
+                        type="time"
+                        value={template.end}
+                        onChange={(e) =>
+                          setTemplate({ ...template, end: e.target.value })
+                        }
+                      />
+                    </Field>
+                  </FieldGroup>
+                  <Button variant="outline" onClick={fillTemplateDay}>
+                    Fyll dagen
+                  </Button>
+                </div>
               </div>
 
               
