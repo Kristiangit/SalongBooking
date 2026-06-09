@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import { Field, FieldGroup, FieldLabel } from "../ui/field"
+import { Input } from "../ui/input"
+import { useState } from "react"
 
 interface Service {
   id: string
@@ -26,6 +29,11 @@ export function AppointmentPanel({
   selectedService,
   onSelectService,
 }: AppointmentPanelProps) {
+  
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
+  const [notes, setNotes] = useState("");
 
   function onConfirm() {
     if (!selectedDay || !selectedSlot) return
@@ -34,68 +42,55 @@ export function AppointmentPanel({
   }
 
   return (
-    <div className="mr-auto">
-      <Card className="w-full">
+    <div className="">
+      <Card className="lg:w-2/3 w-full p-4">
         <CardHeader>
-          <CardTitle>Appointment details</CardTitle>
+          <CardTitle>Detaljer</CardTitle>
         </CardHeader>
         <CardContent className="">
-            <div className="flex flex-row justify-around gap-4">
-                {/* <div className="space-y-4 rounded-3xl border border-slate-800/70 bg-slate-950/80 p-4">
-                    <p className="text-sm uppercase text-slate-400">Selected slot</p>
-                    <p className="text-lg font-semibold text-white">{selectedDay ? selectedDay.toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "Select a day"}</p>
-                    <p className="text-sm text-slate-300">{selectedSlot ?? "Tap any available time to reserve it"}</p>
-                </div> */}
+            <FieldGroup>
+              <div className="flex flex-col justify-around space-y-4">
+                  <div className="grid grid-cols-2 gap-6">
+                    <Field>
+                      <FieldLabel htmlFor="text">Navn<span className="text-destructive">*</span></FieldLabel>
+                      <Input id="text" type="text" value={name} onChange={(e) => setName(e.target.value)} required/>
+                    </Field>
 
-                {/* <div className="space-y-3">
-                    <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Choose service</p>
-                    <div className="grid gap-3">
-                    {services.map((service) => {
-                        const active = selectedService === service.id
-                        return (
-                        <button
-                            key={service.id}
-                            type="button"
-                            onClick={() => onSelectService(service.id)}
-                            className={cn(
-                            "rounded-3xl border px-4 py-4 text-left transition",
-                            active
-                                ? "border-amber-400 bg-amber-400/10 text-white"
-                                : "border-slate-800 bg-slate-950 text-slate-300 hover:border-slate-600 hover:bg-slate-900"
-                            )}
-                        >
-                            <div className="flex items-center justify-between gap-4">
-                            <div>
-                                <p className="font-semibold text-white">{service.label}</p>
-                                <p className="mt-1 text-sm text-slate-400">{service.duration}</p>
-                            </div>
-                            <span className="text-sm font-semibold text-slate-100">{service.price}</span>
-                            </div>
-                        </button>
-                        )
-                    })}
-                    </div>
-                </div> */}
+                    <Field>
+                      <FieldLabel htmlFor="email">E-post<span className="text-destructive">*</span></FieldLabel>
+                      <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+                    </Field>
+                    <Field>
+                      <FieldLabel htmlFor="tel">Telefonnummer<span className="text-destructive">*</span></FieldLabel>
+                      <Input id="tel" type="tel" value={number} onChange={(e) => setNumber(e.target.value)} required/>
+                    </Field>
+                  
+                    <Field>
+                      <FieldLabel htmlFor="comm">Kommentarer?</FieldLabel>
+                      <Input id="comm" type="text" value={notes} onChange={(e) => setNotes(e.target.value)}/>
+                    </Field>
+                  </div>
 
-                <div className="space-y-3 rounded-3xl border border-slate-800/70 bg-slate-950/80 p-5">
-                    <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Summary</p>
-                    <div className="space-y-2 text-sm text-slate-300">
-                        {/* <p>
-                            Service: <span className="text-slate-100">{selectedServiceMeta.label}</span>
-                        </p> */}
-                        <p>
-                            Date: <span className="text-slate-100">{selectedDay ? selectedDay.toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "Not selected"}</span>
-                        </p>
-                        <p>
-                            Time: <span className="text-slate-100">{selectedSlot ?? "Not selected"}</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
+                  <div className="space-y-3 rounded-3xl border border-slate-800/70 bg-background p-5">
+                      <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Summary</p>
+                      <div className="space-y-4 text-sm text-muted-foreground">
+                          <p>
+                              Service: <span className="text-foreground">Vanlig klipp</span>
+                          </p>
+                          <p>
+                              Date: <span className="text-foreground">{selectedDay ? selectedDay.toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "Not selected"}</span>
+                          </p>
+                          <p>
+                              Time: <span className="text-foreground">{selectedSlot ?? "Not selected"}</span>
+                          </p>
+                      </div>
+                  </div>
+              </div>
 
-          <Button className="w-full mt-3" disabled={!selectedSlot || !selectedDay} onClick={onConfirm}>
-            Confirm appointment
-          </Button>
+              <Button className="w-full mt-3" disabled={!selectedSlot || !selectedDay} onClick={onConfirm}>
+                Confirm appointment
+              </Button>
+            </FieldGroup>
         </CardContent>
       </Card>
     </div>

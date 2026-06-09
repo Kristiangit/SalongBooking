@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { WeeklyCalendar } from "@/components/booking/weekly-calendar"
 import { AppointmentPanel } from "@/components/booking/appointment-panel"
 
-const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+const weekdays = ["Man", "Tir", "Ons", "Tor", "Fre", "Lør"]
 const timeSlots = ["09:00",  "10:00",  "11:00",  "12:00",  "13:00",  "14:00",  "15:00",]
 
 const services = [

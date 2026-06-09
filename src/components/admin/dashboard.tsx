@@ -3,17 +3,15 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { FutureAppointmentsManager } from "./appointments";
+import { CalendarAppointments } from "./appointments";
 import { AppoModal } from "./appo-modal";
 
 export default function AdminDashboard() {
   const [appointments, setAppointments] = useState([
-    { id: 1, name: "John Doe", service: "Fade", time: "10:00" },
-    { id: 2, name: "Lisa Smith", service: "Trim", time: "11:00" },
-    { id: 3, name: "Lisa Smith", service: "Trim", time: "12:00" },
-    { id: 4, name: "Lisa Smith", service: "Trim", time: "13:00" },
-    { id: 5, name: "Lisa Smith", service: "Trim", time: "14:00" },
-    { id: 6, name: "Lisa Smith", service: "Trim", time: "15:00" },
+    { id: 1, name: "John Doe", email: "john.doe@example.com", nr: "123-456-7890", time: "10:00" },
+    { id: 2, name: "Lisa Smith", email: "lisa.smith@example.com", nr: "098-765-4321", time: "11:00" },
+    { id: 4, name: "Lisa Smith", email: "lisa.smith@example.com", nr: "098-765-4321", time: "13:00" },
+    { id: 6, name: "Lisa Smith", email: "lisa.smith@example.com", nr: "098-765-4321", time: "15:00" },
   ]);
 
   const [barbers, setBarbers] = useState([
@@ -25,13 +23,14 @@ export default function AdminDashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newAppointment, setNewAppointment] = useState({
     name: "",
-    service: "",
+    email: "",
+    nr: "",
     time: "",
   });
 
 
   const addAppointment = () => {
-    if (!newAppointment.name || !newAppointment.service || !newAppointment.time) return;
+    if (!newAppointment.name || !newAppointment.email || !newAppointment.nr || !newAppointment.time) return;
 
     setAppointments([
       ...appointments,
@@ -41,7 +40,7 @@ export default function AdminDashboard() {
       },
     ]);
 
-    setNewAppointment({ name: "", service: "", time: "" });
+    setNewAppointment({ name: "", email: "", nr: "", time: "" });
     setIsModalOpen(false);
   };
 
@@ -74,7 +73,8 @@ export default function AdminDashboard() {
               >
                 <div>
                   <p className="font-semibold text-gray-800">{appt.name}</p>
-                  <p className="text-sm text-gray-500">{appt.service}</p>
+                  <p className="text-sm text-gray-500">{appt.email}</p>
+                  <p className="text-sm text-gray-500">{appt.nr}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-gray-700">{appt.time}</p>
@@ -86,7 +86,7 @@ export default function AdminDashboard() {
         </CardContent>
       </Card>
 
-      <FutureAppointmentsManager />
+      <CalendarAppointments />
 
       {isModalOpen && (
         <AppoModal
