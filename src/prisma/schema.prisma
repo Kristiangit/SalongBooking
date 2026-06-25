@@ -47,8 +47,7 @@ model Service {
   name        String
   description String?
   duration    Int      // in minutes
-  price       Decimal? @db.Decimal(10, 2)
-  currency    String   @default("USD")
+  price       Int
   color       String   @default("#6366f1") // for calendar display
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
@@ -68,7 +67,7 @@ model Service {
 
 model Availability {
   id         String   @id @default(cuid())
-  dayOfWeek  Int      // 0 = Sunday, 6 = Saturday
+  dayOfWeek  Int      // 0 = Monday, 6 = Sunday
   startTime  String   // "09:00" (HH:mm)
   endTime    String   // "17:00" (HH:mm)
   isActive   Boolean  @default(true)
@@ -97,7 +96,7 @@ model BlockedSlot {
 // ─────────────────────────────────────────
 
 model Booking {
-  id          String        @id @default(cuid())
+  id          String        @id @default(cuid(2))
   status      BookingStatus @default(PENDING)
   startTime   DateTime
   endTime     DateTime

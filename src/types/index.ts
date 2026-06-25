@@ -1,12 +1,11 @@
 // src/types/index.ts
-import type { Booking, Service, User, Payment, BookingStatus } from "@prisma/client";
+import type { Booking, Service, User, BookingStatus } from "@prisma/client";
 
 // Booking with all common relations included
 export type BookingWithDetails = Booking & {
   service: Service;
   client: Pick<User, "id" | "name" | "email" | "phone">;
   provider: Pick<User, "id" | "name" | "email">;
-  payment: Payment | null;
 };
 
 // An available time slot returned from the API
