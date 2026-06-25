@@ -5,6 +5,41 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CalendarAppointments } from "./appointments";
 import { AppoModal } from "./appo-modal";
+import { Calendar, dateFnsLocalizer, Event } from "react-big-calendar";
+import { format, parse, startOfWeek, getDay, } from 'date-fns'
+import { enUS, nb, de } from 'date-fns/locale'
+
+import 'react-big-calendar/lib/css/react-big-calendar.css'
+
+
+const locales = {
+  'de-DE': de,
+  'nb-NO': nb,
+  'en-US': enUS,
+}
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+})
+
+const BigCalendar = () => (
+    <Calendar
+      localizer={localizer}
+      events={[]}
+      startAccessor="start"
+      endAccessor="end"
+      style={{ height: 500 }}
+      defaultView="week"
+      views={['day', 'week', 'month']} // Show only week and day views
+      min={new Date(2024, 0, 1, 7, 0)} // Set the minimum time to 7:00 AM
+      max={new Date(2024, 0, 1, 20, 0)} // Set the maximum time to 8:00 PM
+      scrollToTime={new Date(2024, 0, 1, 9, 0)} // Scroll to 9:00 AM on load
+    />
+)
 
 export default function AdminDashboard() {
   const [appointments, setAppointments] = useState([
@@ -14,10 +49,10 @@ export default function AdminDashboard() {
     { id: 6, name: "Lisa Smith", email: "lisa.smith@example.com", nr: "098-765-4321", time: "15:00" },
   ]);
 
-  const [barbers, setBarbers] = useState([
-    { id: 1, name: "Mike" },
-    { id: 2, name: "Anna" },
-  ]);
+  // const [barbers, setBarbers] = useState([
+  //   { id: 1, name: "Mike" },
+  //   { id: 2, name: "Anna" },
+  // ]);
 
   
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,7 +92,7 @@ export default function AdminDashboard() {
         </Card>
 
       </div>
-
+{/* 
       <Card className="bg-white border shadow-sm">
         <CardContent className="p-4">
           <div className="flex justify-between items-center mb-4">
@@ -84,7 +119,9 @@ export default function AdminDashboard() {
             ))}
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
+
+      <BigCalendar />
 
       <CalendarAppointments />
 
