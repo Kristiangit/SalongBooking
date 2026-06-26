@@ -10,6 +10,7 @@ import { format, parse, startOfWeek, getDay, } from 'date-fns'
 import { enUS, nb, de } from 'date-fns/locale'
 
 import 'react-big-calendar/lib/css/react-big-calendar.css'
+import { ManagerGrid } from "./manager-grid";
 
 
 const locales = {
@@ -80,7 +81,7 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="p-6 grid gap-6 bg-gray-50 min-h-screen text-gray-900">
+    <div className="p-6 flex flex-col gap-12 bg-gray-50 min-h-screen text-gray-900">
       <h1 className="text-3xl font-bold">Admin Dashboard</h1>
 
       <div className="grid md:grid-cols-3 gap-6">
@@ -92,7 +93,7 @@ export default function AdminDashboard() {
         </Card>
 
       </div>
-{/* 
+        {/* 
       <Card className="bg-white border shadow-sm">
         <CardContent className="p-4">
           <div className="flex justify-between items-center mb-4">
@@ -123,7 +124,9 @@ export default function AdminDashboard() {
 
       <BigCalendar />
 
-      <CalendarAppointments />
+      {/* <CalendarAppointments /> */}
+      <ManagerGrid />
+
 
       {isModalOpen && (
         <AppoModal
