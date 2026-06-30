@@ -1,15 +1,35 @@
-import { columns, Payment } from "@/components/admin/service/columns"
+import { columns } from "@/components/admin/service/columns"
 import { DataTable } from "@/components/admin/service/data-table"
 
-async function getData(): Promise<Payment[]> {
+async function getData(): Promise<any[]> {
   // Fetch data from your API here.
   return [
     {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
+      id: "1",
+      name: "Service 1",
+      description: "Description for Service 1",
+      duration: 60,
+      price: 500,
+      isActive: true,
+      color: "red",
+      currency: "NOK",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      providerId: "provider1"
     },
+    {
+      id: "2",
+      name: "Service 2",
+      description: "Description for Service 2",
+      duration: 30,
+      price: 600,
+      isActive: false,
+      color: "blue",
+      currency: "NOK",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      providerId: "provider1"
+    }
     // ...
   ]
 }
