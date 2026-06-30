@@ -2,21 +2,18 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { MoreHorizontal } from "lucide-react"
- 
-import { Button } from "@/components/ui/button"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Service } from "@prisma/client"
+import { Service } from "@/prisma/generated/client"
 
-
-export const columns: ColumnDef<Service>[] = [
+export const serviceColumns: ColumnDef<Service>[] = [
 	{
         accessorKey: "name",
 		header: "Navn",

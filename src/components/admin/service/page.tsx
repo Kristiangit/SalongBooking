@@ -1,6 +1,6 @@
 import { Service } from "@/prisma/generated/client/edge"
 import { columns } from "./columns"
-import { DataTable } from "./data-table"
+import { DataTable } from "../../ui/data-table"
 
 async function getData(): Promise<Service[]> {
   // Fetch data from your API here.

@@ -1,4 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import ServiceTable from "./service/service-table";
 
 
 export function ManagerGrid() {
@@ -20,7 +21,7 @@ export function ManagerGrid() {
                     <AccordionItem>
                         <AccordionTrigger>Klipp</AccordionTrigger>
                         <AccordionContent>
-                            <p>Appointment details for Klipp</p>
+                            <ServiceTable></ServiceTable>
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>

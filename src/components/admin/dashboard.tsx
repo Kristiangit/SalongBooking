@@ -1,84 +1,25 @@
-"use client"
-import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CalendarAppointments } from "./appointments";
 import { AppoModal } from "./appo-modal";
-import { Calendar, dateFnsLocalizer, Event } from "react-big-calendar";
-import { format, parse, startOfWeek, getDay, } from 'date-fns'
-import { enUS, nb, de } from 'date-fns/locale'
 
-import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { ManagerGrid } from "./manager-grid";
+import BigCalendar from "./big-calendar";
 
-
-const locales = {
-  'de-DE': de,
-  'nb-NO': nb,
-  'en-US': enUS,
-}
-
-const localizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek,
-  getDay,
-  locales,
-})
-
-const BigCalendar = () => (
-    <Calendar
-      localizer={localizer}
-      events={[]}
-      startAccessor="start"
-      endAccessor="end"
-      style={{ height: 500 }}
-      defaultView="week"
-      views={['day', 'week', 'month']} // Show only week and day views
-      min={new Date(2024, 0, 1, 7, 0)} // Set the minimum time to 7:00 AM
-      max={new Date(2024, 0, 1, 20, 0)} // Set the maximum time to 8:00 PM
-      scrollToTime={new Date(2024, 0, 1, 9, 0)} // Scroll to 9:00 AM on load
-    />
-)
 
 export default function AdminDashboard() {
-  const [appointments, setAppointments] = useState([
+  const appointments = [
     { id: 1, name: "John Doe", email: "john.doe@example.com", nr: "123-456-7890", time: "10:00" },
     { id: 2, name: "Lisa Smith", email: "lisa.smith@example.com", nr: "098-765-4321", time: "11:00" },
     { id: 4, name: "Lisa Smith", email: "lisa.smith@example.com", nr: "098-765-4321", time: "13:00" },
     { id: 6, name: "Lisa Smith", email: "lisa.smith@example.com", nr: "098-765-4321", time: "15:00" },
-  ]);
+  ];
 
   // const [barbers, setBarbers] = useState([
   //   { id: 1, name: "Mike" },
   //   { id: 2, name: "Anna" },
   // ]);
-
-  
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newAppointment, setNewAppointment] = useState({
-    name: "",
-    email: "",
-    nr: "",
-    time: "",
-  });
-
-
-  const addAppointment = () => {
-    if (!newAppointment.name || !newAppointment.email || !newAppointment.nr || !newAppointment.time) return;
-
-    setAppointments([
-      ...appointments,
-      {
-        id: Date.now(),
-        ...newAppointment,
-      },
-    ]);
-
-    setNewAppointment({ name: "", email: "", nr: "", time: "" });
-    setIsModalOpen(false);
-  };
 
   return (
     <div className="p-6 flex flex-col gap-12 bg-gray-50 min-h-screen text-gray-900">
@@ -128,14 +69,14 @@ export default function AdminDashboard() {
       <ManagerGrid />
 
 
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <AppoModal
           newAppointment={newAppointment}
           setNewAppointment={setNewAppointment}
           setIsModalOpen={setIsModalOpen}
           addAppointment={addAppointment}
         />
-      )}
+      )} */}
 
 
       {/* <Card className="bg-white border shadow-sm">
