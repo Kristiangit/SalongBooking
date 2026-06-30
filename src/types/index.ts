@@ -25,3 +25,5 @@ export interface BookingFormState {
 }
 
 export type { BookingStatus };
+
+export type { Service };
